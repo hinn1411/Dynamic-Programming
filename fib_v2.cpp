@@ -1,30 +1,28 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <utility>
+#include <vector>
 using namespace std;
 
-int fib(int n, vector<int> &store)
+double gridTraveler(int m, int n, vector<vector<int>> &cache)
 {
-    if(n <= 0)
-        return -1;
-    else if(n <= 2)
-        return store[n - 1];
-
-    if(store.size() >= n)
-        return store[n - 1];
-    store.push_back(fib(n - 1, store) + fib(n - 2, store));
-    return store.back();
+    if (cache[m][n] > 0)
+        return cache[m][n];
+    if (m == 0 || n == 0)
+        return 0;
+    if (m == 1 || n == 1)
+    {
+        cache[m][n] = 1;
+        return cache[m][n];
+    }
+    cache[m][n] = gridTraveler(m - 1, n, cache) + gridTraveler(m, n - 1, cache);
+    return cache[m][n];
 }
 
 int main()
 {
-    vector<int> store;
-    store.push_back(1);
-    store.push_back(1);
-    int n;
-    cin >> n;
-    cout << fib(n, store) << endl;
-    for(int &i : store)
-        cout << i << " ";
-    cout << endl;
+    int m, n;
+    cin >> m >> n;
+    vector<vector<int>> cache(m + 1, vector<int>(n + 1, 0));
+    cout << gridTraveler(m, n, cache) << endl;
     return 0;
 }

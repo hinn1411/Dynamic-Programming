@@ -1,2 +1,3 @@
 # Dynamic-Programming
-Repo for DP problems in C++
+Repo for DP problems
+Language: C++ only
